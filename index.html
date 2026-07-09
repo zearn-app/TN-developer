@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zoroz — Full Stack Web Developer</title>
+<meta name="description" content="Zoroz | TN Developer — Full Stack Web Developer building modern, fast, SEO-friendly websites with React, Firebase, Tailwind CSS.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="logo.png">
+</head>
+<body>
+
+<div class="cursor-glow" id="cursorGlow"></div>
+<div class="loader" id="loader">
+  <div class="loader-mark">
+    <span>{</span><span>}</span>
+  </div>
+  <div class="loader-text">ZOROZ</div>
+</div>
+
+<!-- ================= NAV ================= -->
+<header class="nav" id="nav">
+  <a href="#home" class="logo">TN<span>Dev</span></a>
+  <nav class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Work</a>
+    <a href="#process">Process</a>
+    <a href="#testimonials">Reviews</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a href="#contact" class="btn btn-small">Hire Me</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="home">
+  <canvas id="blobCanvas"></canvas>
+  <div class="particles" id="particles"></div>
+
+  <div class="hero-inner">
+    <p class="hero-eyebrow reveal">👋 Hello, I'm</p>
+    <h1 class="hero-name reveal">
+      <span class="type-target" id="typeTarget"></span><span class="cursor-blink">|</span>
+    </h1>
+    <p class="hero-role reveal">Full Stack Web Developer</p>
+    <p class="hero-sub reveal">I design and develop beautiful websites with<br>
+      <strong>React</strong> • <strong>Firebase</strong> • <strong>Tailwind CSS</strong> • <strong>SEO</strong>
+    </p>
+    <div class="hero-ctas reveal">
+      <a href="#contact" class="btn btn-primary magnetic">Hire Me</a>
+      <a href="#projects" class="btn btn-outline magnetic">View Projects</a>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span></span> Scroll
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="section" id="about">
+  <div class="section-head reveal">
+    <p class="eyebrow">About Me</p>
+    <h2>Turning ideas into fast, living products</h2>
+  </div>
+
+  <div class="about-grid">
+    <div class="glass-card about-card reveal">
+      <p>Passionate web developer specializing in modern websites, business platforms, landing pages, and SEO optimization. I create fast, responsive, and user-friendly digital experiences — from the first wireframe to the last Lighthouse score.</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="glass-card stat-card reveal">
+        <div class="stat-icon">⭐</div>
+        <div class="stat-num" data-count="20" data-suffix="+">0</div>
+        <div class="stat-label">Projects Delivered</div>
+      </div>
+      <div class="glass-card stat-card reveal">
+        <div class="stat-icon">🚀</div>
+        <div class="stat-num" data-count="2">0</div>
+        <div class="stat-label">Business Websites</div>
+      </div>
+      <div class="glass-card stat-card reveal">
+        <div class="stat-icon">😊</div>
+        <div class="stat-num" data-count="100" data-suffix="%">0</div>
+        <div class="stat-label">Happy Clients</div>
+      </div>
+      <div class="glass-card stat-card reveal">
+        <div class="stat-icon">⚡</div>
+        <div class="stat-num-text">Fast</div>
+        <div class="stat-label">Delivery, Always</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SKILLS ================= -->
+<section class="section section-alt" id="skills">
+  <div class="section-head reveal">
+    <p class="eyebrow">Skills</p>
+    <h2>The stack behind the work</h2>
+  </div>
+
+  <div class="skills-grid">
+    <div class="glass-card skill-card reveal">
+      <h3>Frontend</h3>
+      <div class="bar-row"><span>React</span><div class="bar"><div class="bar-fill" data-fill="92"></div></div></div>
+      <div class="bar-row"><span>HTML</span><div class="bar"><div class="bar-fill" data-fill="98"></div></div></div>
+      <div class="bar-row"><span>CSS</span><div class="bar"><div class="bar-fill" data-fill="95"></div></div></div>
+      <div class="bar-row"><span>JavaScript</span><div class="bar"><div class="bar-fill" data-fill="93"></div></div></div>
+      <div class="bar-row"><span>TypeScript</span><div class="bar"><div class="bar-fill" data-fill="80"></div></div></div>
+      <div class="bar-row"><span>Tailwind CSS</span><div class="bar"><div class="bar-fill" data-fill="90"></div></div></div>
+    </div>
+
+    <div class="glass-card skill-card reveal">
+      <h3>Backend</h3>
+      <div class="bar-row"><span>Firebase</span><div class="bar"><div class="bar-fill" data-fill="95"></div></div></div>
+      <div class="bar-row"><span>Firestore</span><div class="bar"><div class="bar-fill" data-fill="92"></div></div></div>
+      <div class="bar-row"><span>Authentication</span><div class="bar"><div class="bar-fill" data-fill="88"></div></div></div>
+      <div class="bar-row"><span>Hosting</span><div class="bar"><div class="bar-fill" data-fill="90"></div></div></div>
+    </div>
+
+    <div class="glass-card skill-card reveal">
+      <h3>SEO &amp; Performance</h3>
+      <div class="bar-row"><span>Responsive Design</span><div class="bar"><div class="bar-fill" data-fill="96"></div></div></div>
+      <div class="bar-row"><span>Google Indexing</span><div class="bar"><div class="bar-fill" data-fill="88"></div></div></div>
+      <div class="bar-row"><span>Schema Markup</span><div class="bar"><div class="bar-fill" data-fill="85"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section class="section" id="projects">
+  <div class="section-head reveal">
+    <p class="eyebrow">Featured Projects</p>
+    <h2>Premium Websites</h2>
+  </div>
+
+  <div class="projects-grid">
+    <a href="https://kodaihillsspot.com" target="_blank" rel="noopener" class="glass-card project-card tilt reveal">
+      <div class="project-badge">🥇 Premium</div>
+      <h3>Kodai Hills Spot</h3>
+      <p class="project-link">kodaihillsspot.com</p>
+      <ul class="project-features">
+        <li>✔ Ecommerce</li>
+        <li>✔ SEO</li>
+        <li>✔ Responsive</li>
+        <li>✔ Firebase</li>
+        <li>✔ Fast Loading</li>
+      </ul>
+      <span class="project-cta">Visit Site →</span>
+    </a>
+
+    <a href="https://zearn.ind.in" target="_blank" rel="noopener" class="glass-card project-card tilt reveal">
+      <div class="project-badge">🥇 Premium</div>
+      <h3>Zearn</h3>
+      <p class="project-link">zearn.ind.in</p>
+      <ul class="project-features">
+        <li>✔ Business Platform</li>
+        <li>✔ Authentication</li>
+        <li>✔ Dashboard</li>
+        <li>✔ Modern UI</li>
+        <li>✔ Firebase</li>
+      </ul>
+      <span class="project-cta">Visit Site →</span>
+    </a>
+  </div>
+
+  <div class="section-head reveal" style="margin-top:5rem;">
+    <p class="eyebrow">Creative Projects</p>
+    <h2>Just for fun, built with love</h2>
+  </div>
+
+  <div class="creative-grid">
+    <div class="glass-card creative-card tilt reveal"><span class="creative-icon">🎂</span><h4>Birthday Website 01</h4></div>
+    <div class="glass-card creative-card tilt reveal"><span class="creative-icon">🎉</span><h4>Birthday Website 02</h4></div>
+    <div class="glass-card creative-card tilt reveal"><span class="creative-icon">💌</span><h4>Love Proposal 01</h4></div>
+    <div class="glass-card creative-card tilt reveal"><span class="creative-icon">💜</span><h4>Love Proposal 02</h4></div>
+    <div class="glass-card creative-card tilt reveal"><span class="creative-icon">🔥</span><h4>ReFlame</h4></div>
+  </div>
+</section>
+
+<!-- ================= WHY CHOOSE ME ================= -->
+<section class="section section-alt" id="why">
+  <div class="section-head reveal">
+    <p class="eyebrow">Why Choose Me</p>
+    <h2>Built to last, made to convert</h2>
+  </div>
+
+  <div class="why-grid">
+    <div class="glass-card why-card reveal"><span class="why-icon">⚡</span><h4>Modern UI</h4></div>
+    <div class="glass-card why-card reveal"><span class="why-icon">🚀</span><h4>SEO Optimized</h4></div>
+    <div class="glass-card why-card reveal"><span class="why-icon">📱</span><h4>Mobile Friendly</h4></div>
+    <div class="glass-card why-card reveal"><span class="why-icon">🔒</span><h4>Secure</h4></div>
+    <div class="glass-card why-card reveal"><span class="why-icon">☁️</span><h4>Firebase Hosting</h4></div>
+    <div class="glass-card why-card reveal"><span class="why-icon">💎</span><h4>Premium Design</h4></div>
+  </div>
+</section>
+
+<!-- ================= PROCESS ================= -->
+<section class="section" id="process">
+  <div class="section-head reveal">
+    <p class="eyebrow">Process</p>
+    <h2>From idea to launch</h2>
+  </div>
+
+  <div class="timeline reveal">
+    <div class="timeline-track"></div>
+    <div class="timeline-step"><div class="tl-dot"></div><h4>Planning</h4></div>
+    <div class="timeline-step"><div class="tl-dot"></div><h4>Design</h4></div>
+    <div class="timeline-step"><div class="tl-dot"></div><h4>Development</h4></div>
+    <div class="timeline-step"><div class="tl-dot"></div><h4>Testing</h4></div>
+    <div class="timeline-step"><div class="tl-dot"></div><h4>Launch</h4></div>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section class="section section-alt" id="testimonials">
+  <div class="section-head reveal">
+    <p class="eyebrow">Testimonials</p>
+    <h2>What clients say</h2>
+  </div>
+
+  <div class="testimonials-grid">
+    <div class="glass-card testimonial-card reveal">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <p>"Excellent work — delivered exactly what we envisioned, and faster than expected."</p>
+      <span class="t-name">— Client Review</span>
+    </div>
+    <div class="glass-card testimonial-card reveal">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <p>"Professional, communicative, and genuinely cares about getting the details right."</p>
+      <span class="t-name">— Client Review</span>
+    </div>
+    <div class="glass-card testimonial-card reveal">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <p>"Fast delivery without compromising on quality. Highly recommended."</p>
+      <span class="t-name">— Client Review</span>
+    </div>
+  </div>
+  <p class="testimonial-note reveal">Replace with real client reviews.</p>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="section" id="contact">
+  <div class="section-head reveal">
+    <p class="eyebrow">Contact</p>
+    <h2>Let's build something great</h2>
+  </div>
+
+  <div class="glass-card contact-card reveal">
+    <div class="contact-row">
+      <a href="mailto:dhilip.7374@gmail.com" class="contact-item">
+        <span class="contact-icon">📧</span>
+        <div><strong>Email</strong><p>dhilip.7374@gmail.com</p></div>
+      </a>
+      <a href="https://wa.me/918680852640" target="_blank" rel="noopener" class="contact-item">
+        <span class="contact-icon">💬</span>
+        <div><strong>WhatsApp</strong><p>+91 86808 52640</p></div>
+      </a>
+      <a href="https://t.me/8680852640" target="_blank" rel="noopener" class="contact-item">
+        <span class="contact-icon">✈️</span>
+        <div><strong>Telegram</strong><p>+91 86808 52640</p></div>
+      </a>
+      <a href="https://www.instagram.com/tn_web_developer" target="_blank" rel="noopener" class="contact-item">
+        <span class="contact-icon">📸</span>
+        <div><strong>Instagram</strong><p>@tn_web_developer</p></div>
+      </a>
+      <div class="contact-item contact-item-static">
+        <span class="contact-icon">📍</span>
+        <div><strong>Location</strong><p>India</p></div>
+      </div>
+    </div>
+
+    <div class="hero-ctas" style="margin-top:2.5rem;">
+      <a href="mailto:dhilip.7374@gmail.com" class="btn btn-primary magnetic">Hire Me</a>
+      <a href="https://wa.me/918680852640" target="_blank" rel="noopener" class="btn btn-outline magnetic">Let's Talk</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <p>Made with 💜 by <strong>Zoroz</strong></p>
+  <p class="footer-views" id="viewCounter">Loading visits…</p>
+</footer>
+
+<script type="module" src="firebase-config.js"></script>
+<script src="script.js"></script>
+</body>
+      </html>
+                                               
