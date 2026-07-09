@@ -33,12 +33,13 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID",
+  apiKey: "AIzaSyAbYt_z5GaqOTcVlz3FRjssTwC7Uzv_MdA",
+  authDomain: "information-b9593.firebaseapp.com",
+  projectId: "information-b9593",
+  storageBucket: "information-b9593.firebasestorage.app",
+  messagingSenderId: "767588407430",
+  appId: "1:767588407430:web:2003ebf2e30f0d1751d907",
+  measurementId: "G-18PH5FWNNB"
 };
 
 const viewCounterEl = document.getElementById("viewCounter");
