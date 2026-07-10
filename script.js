@@ -180,13 +180,12 @@ hireForm.addEventListener('submit', async (e) => {
     name: hireForm.name.value.trim(),
     businessName: hireForm.businessName.value.trim(),
     dob: hireForm.dob.value,
-    phone: hireForm.phone.value.trim(),
     businessEmail: hireForm.businessEmail.value.trim(),
     instagram: hireForm.instagram.value.trim(),
     youtube: hireForm.youtube.value.trim(),
   };
 
-  if (!data.name || !data.businessName || !data.dob || !data.phone || !data.businessEmail) {
+  if (!data.name || !data.businessName || !data.dob || !data.businessEmail) {
     hireStatus.textContent = 'Please fill in all required fields.';
     hireStatus.classList.add('error');
     return;
