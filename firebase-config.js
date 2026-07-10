@@ -4,8 +4,9 @@
 // 2. Project settings → General → "Your apps" → Web app → copy the config
 // 3. Paste your config values below (replace every "YOUR_..." placeholder)
 // 4. Firestore Database → Create database → Start in production mode
-// 5. Firestore Rules (Rules tab) — paste this so only the counter field
-//    can be written by visitors:
+// 5. Firestore Rules (Rules tab) — paste this so visitors can only
+//    increment the counter and create new hire requests (never read/edit
+//    other people's hire requests):
 //
 //    rules_version = '2';
 //    service cloud.firestore {
@@ -13,6 +14,12 @@
 //        match /analytics/pageViews {
 //          allow read: if true;
 //          allow write: if request.resource.data.keys().hasOnly(['home','about','skills','projects','process','testimonials','contact','total']);
+//        }
+//        match /hireRequests/{docId} {
+//          allow create: if request.resource.data.keys().hasAll(['name','businessName','dob','phone','businessEmail','createdAt'])
+//                         && request.resource.data.name is string
+//                         && request.resource.data.businessEmail is string;
+//          allow read, update, delete: if false; // only visible in the Firebase console
 //        }
 //      }
 //    }
@@ -22,14 +29,20 @@
 //    firebase login
 //    firebase init hosting   (choose this folder as the public directory)
 //    firebase deploy
+//
+// Hire requests submitted from the "Hire Me" popup are stored in the
+// `hireRequests` collection — view them in Firebase Console → Firestore.
 // ============================================================
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
   getFirestore,
   doc,
+  collection,
+  addDoc,
   runTransaction,
   onSnapshot,
+  serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -47,10 +60,18 @@ const viewCounterEl = document.getElementById("viewCounter");
 // Sections we track individually as "pages" of this one-page site.
 const PAGE_IDS = ["home", "about", "skills", "projects", "process", "testimonials", "contact"];
 
+let app, db, firebaseReady = false;
+try {
+  app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
+  firebaseReady = true;
+} catch (err) {
+  console.warn("Firebase failed to initialize:", err.message);
+}
+
 async function trackVisit() {
+  if (!firebaseReady) return;
   try {
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
     const ref = doc(db, "analytics", "pageViews");
 
     // Figure out which section the visitor landed on (or is currently viewing)
@@ -86,3 +107,24 @@ trackVisit();
 // Track section changes as the visitor scrolls (updates per-section view count
 // once per session, based on which section is in view the longest on load of that hash)
 window.addEventListener("hashchange", trackVisit);
+
+// ============ HIRE REQUEST SUBMISSION ============
+// Called from script.js when the "Hire Me" popup form is submitted.
+window.submitHireRequest = async function (data) {
+  if (!firebaseReady) {
+    throw new Error("Firebase is not configured yet — add your config to firebase-config.js");
+  }
+  const requestsRef = collection(db, "hireRequests");
+  await addDoc(requestsRef, {
+    name: data.name,
+    businessName: data.businessName,
+    dob: data.dob,
+    phone: data.phone,
+    businessEmail: data.businessEmail,
+    instagram: data.instagram || "",
+    youtube: data.youtube || "",
+    source: "hire-popup",
+    page: location.href,
+    createdAt: serverTimestamp(),
+  });
+};
