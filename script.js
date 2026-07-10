@@ -24,7 +24,7 @@ window.addEventListener('scroll', () => {
 
 // ============ TYPING ANIMATION ============
 const typeTarget = document.getElementById('typeTarget');
-const name = 'Zoroz';
+const name = 'TN';
 let ti = 0;
 function typeLoop() {
   if (ti <= name.length) {
