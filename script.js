@@ -144,6 +144,78 @@ document.querySelectorAll('.tilt').forEach(card => {
   });
 });
 
+// ============ HIRE ME MODAL ============
+const hireOverlay = document.getElementById('hireOverlay');
+const hireClose = document.getElementById('hireClose');
+const hireForm = document.getElementById('hireForm');
+const hireStatus = document.getElementById('hireStatus');
+const hireSubmitBtn = document.getElementById('hireSubmitBtn');
+
+function openHireModal() {
+  hireOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeHireModal() {
+  hireOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.hire-trigger').forEach(btn => {
+  btn.addEventListener('click', openHireModal);
+});
+hireClose.addEventListener('click', closeHireModal);
+hireOverlay.addEventListener('click', (e) => {
+  if (e.target === hireOverlay) closeHireModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeHireModal();
+});
+
+hireForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  hireStatus.textContent = '';
+  hireStatus.classList.remove('error');
+
+  const data = {
+    name: hireForm.name.value.trim(),
+    businessName: hireForm.businessName.value.trim(),
+    dob: hireForm.dob.value,
+    phone: hireForm.phone.value.trim(),
+    businessEmail: hireForm.businessEmail.value.trim(),
+    instagram: hireForm.instagram.value.trim(),
+    youtube: hireForm.youtube.value.trim(),
+  };
+
+  if (!data.name || !data.businessName || !data.dob || !data.phone || !data.businessEmail) {
+    hireStatus.textContent = 'Please fill in all required fields.';
+    hireStatus.classList.add('error');
+    return;
+  }
+
+  if (typeof window.submitHireRequest !== 'function') {
+    hireStatus.textContent = 'Form is not connected yet — please try again shortly.';
+    hireStatus.classList.add('error');
+    return;
+  }
+
+  hireSubmitBtn.disabled = true;
+  hireSubmitBtn.textContent = 'Sending…';
+
+  try {
+    await window.submitHireRequest(data);
+    hireStatus.textContent = "Thanks! I'll get back to you soon 💜";
+    hireForm.reset();
+    setTimeout(closeHireModal, 1800);
+  } catch (err) {
+    console.error(err);
+    hireStatus.textContent = 'Something went wrong. Please try WhatsApp instead.';
+    hireStatus.classList.add('error');
+  } finally {
+    hireSubmitBtn.disabled = false;
+    hireSubmitBtn.textContent = 'Send Request';
+  }
+});
+
 // ============ MAGNETIC BUTTONS ============
 document.querySelectorAll('.magnetic').forEach(btn => {
   btn.addEventListener('mousemove', (e) => {
@@ -154,4 +226,3 @@ document.querySelectorAll('.magnetic').forEach(btn => {
   });
   btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
 });
-    
