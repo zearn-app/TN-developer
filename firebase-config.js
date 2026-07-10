@@ -16,7 +16,7 @@
 //          allow write: if request.resource.data.keys().hasOnly(['home','about','skills','projects','process','testimonials','contact','total']);
 //        }
 //        match /hireRequests/{docId} {
-//          allow create: if request.resource.data.keys().hasAll(['name','businessName','dob','phone','businessEmail','createdAt'])
+//          allow create: if request.resource.data.keys().hasAll(['name','businessName','dob','businessEmail','createdAt'])
 //                         && request.resource.data.name is string
 //                         && request.resource.data.businessEmail is string;
 //          allow read, update, delete: if false; // only visible in the Firebase console
@@ -46,13 +46,12 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAas0AftCAV9eIddoEVezhjVsCAMIXlcUY",
-  authDomain: "tn-developer-54557.firebaseapp.com",
-  projectId: "tn-developer-54557",
-  storageBucket: "tn-developer-54557.firebasestorage.app",
-  messagingSenderId: "780758782991",
-  appId: "1:780758782991:web:8de4806f8d7eea970fbf7a",
-  measurementId: "G-Q8EYMHQKKL"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID",
 };
 
 const viewCounterEl = document.getElementById("viewCounter");
@@ -119,7 +118,6 @@ window.submitHireRequest = async function (data) {
     name: data.name,
     businessName: data.businessName,
     dob: data.dob,
-    phone: data.phone,
     businessEmail: data.businessEmail,
     instagram: data.instagram || "",
     youtube: data.youtube || "",
