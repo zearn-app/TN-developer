@@ -33,7 +33,7 @@
     <a href="#testimonials">Reviews</a>
     <a href="#contact">Contact</a>
   </nav>
-  <a href="#contact" class="btn btn-small">Hire Me</a>
+  <button class="btn btn-small hire-trigger">Hire Me</button>
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </header>
 
@@ -52,7 +52,7 @@
       <strong>React</strong> • <strong>Firebase</strong> • <strong>Tailwind CSS</strong> • <strong>SEO</strong>
     </p>
     <div class="hero-ctas reveal">
-      <a href="#contact" class="btn btn-primary magnetic">Hire Me</a>
+      <button class="btn btn-primary magnetic hire-trigger">Hire Me</button>
       <a href="#projects" class="btn btn-outline magnetic">View Projects</a>
     </div>
   </div>
@@ -278,7 +278,7 @@
     </div>
 
     <div class="hero-ctas" style="margin-top:2.5rem;">
-      <a href="mailto:dhilip.7374@gmail.com" class="btn btn-primary magnetic">Hire Me</a>
+      <button class="btn btn-primary magnetic hire-trigger">Hire Me</button>
       <a href="https://wa.me/918680852640" target="_blank" rel="noopener" class="btn btn-outline magnetic">Let's Talk</a>
     </div>
   </div>
@@ -290,8 +290,61 @@
   <p class="footer-views" id="viewCounter">Loading visits…</p>
 </footer>
 
+<!-- ================= HIRE ME MODAL ================= -->
+<div class="modal-overlay" id="hireOverlay">
+  <div class="modal glass-card" id="hireModal">
+    <button class="modal-close" id="hireClose" aria-label="Close">&times;</button>
+
+    <div class="modal-head">
+      <p class="eyebrow">Let's Work Together</p>
+      <h3>Tell me about your project</h3>
+    </div>
+
+    <form id="hireForm" class="hire-form" novalidate>
+      <div class="form-row">
+        <label for="hireName">Name <span>*</span></label>
+        <input type="text" id="hireName" name="name" required autocomplete="name" placeholder="Your full name">
+      </div>
+
+      <div class="form-row">
+        <label for="hireBusiness">Business Name <span>*</span></label>
+        <input type="text" id="hireBusiness" name="businessName" required placeholder="Your company / brand">
+      </div>
+
+      <div class="form-row form-row-half">
+        <div>
+          <label for="hireDob">Date of Birth <span>*</span></label>
+          <input type="date" id="hireDob" name="dob" required>
+        </div>
+        <div>
+          <label for="hirePhone">Phone Number <span>*</span></label>
+          <input type="tel" id="hirePhone" name="phone" required placeholder="+91 98765 43210">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label for="hireEmail">Business Email <span>*</span></label>
+        <input type="email" id="hireEmail" name="businessEmail" required placeholder="you@business.com">
+      </div>
+
+      <div class="form-row form-row-half">
+        <div>
+          <label for="hireInsta">Instagram <span class="optional">(optional)</span></label>
+          <input type="text" id="hireInsta" name="instagram" placeholder="instagram.com/you">
+        </div>
+        <div>
+          <label for="hireYoutube">YouTube <span class="optional">(optional)</span></label>
+          <input type="text" id="hireYoutube" name="youtube" placeholder="youtube.com/@you">
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary hire-submit" id="hireSubmitBtn">Send Request</button>
+      <p class="hire-status" id="hireStatus"></p>
+    </form>
+  </div>
+</div>
+
 <script type="module" src="firebase-config.js"></script>
 <script src="script.js"></script>
 </body>
-      </html>
-                                               
+</html>
