@@ -29,6 +29,7 @@
     <a href="#about">About</a>
     <a href="#skills">Skills</a>
     <a href="#projects">Work</a>
+    <a href="#apps">Apps</a>
     <a href="#process">Process</a>
     <a href="#testimonials">Reviews</a>
     <a href="#contact">Contact</a>
@@ -185,6 +186,48 @@
   </div>
 </section>
 
+<!-- ================= APPS ================= -->
+<section class="section section-alt" id="apps">
+  <div class="section-head reveal">
+    <p class="eyebrow">Android App</p>
+    <h2>Apps I've Built</h2>
+  </div>
+
+  <div class="apps-grid">
+    <div class="glass-card app-card tilt reveal">
+      <div class="app-card-top">
+        <div class="app-icon">🔔</div>
+        <div class="app-card-title">
+          <h3>NotifyTone AI</h3>
+          <p class="app-tag">Custom Notification Sounds</p>
+        </div>
+        <span class="app-badge">Free</span>
+      </div>
+
+      <p class="app-desc">Assign a unique notification sound to any contact, app, or chat conversation — so you know who's messaging before you even glance at your phone.</p>
+
+      <ul class="app-features">
+        <li>✔ Per-contact sounds</li>
+        <li>✔ Per-app sounds</li>
+        <li>✔ Works across all apps</li>
+        <li>✔ Smart chat/DM detection</li>
+        <li>✔ Reliable even in Doze mode</li>
+        <li>✔ Built with Kotlin + Compose</li>
+      </ul>
+
+      <button
+        type="button"
+        class="btn btn-primary magnetic app-download-btn"
+        data-apk-url="PASTE_YOUR_APK_LINK_HERE/NTA_00_1.apk"
+        data-app-name="NotifyTone AI"
+        data-file-name="NotifyToneAI.apk">
+        ⬇ Download APK
+      </button>
+      <p class="app-meta">Android • Direct APK install • Not on Play Store</p>
+    </div>
+  </div>
+</section>
+
 <!-- ================= WHY CHOOSE ME ================= -->
 <section class="section section-alt" id="why">
   <div class="section-head reveal">
@@ -331,6 +374,34 @@
       <button type="submit" class="btn btn-primary hire-submit" id="hireSubmitBtn">Send Request</button>
       <p class="hire-status" id="hireStatus"></p>
     </form>
+  </div>
+</div>
+
+<!-- ================= APK DOWNLOAD WARNING MODAL ================= -->
+<div class="modal-overlay" id="apkOverlay">
+  <div class="modal glass-card apk-modal" id="apkModal">
+    <button class="modal-close" id="apkClose" aria-label="Close">&times;</button>
+
+    <div class="modal-head">
+      <p class="eyebrow">Download Started</p>
+      <h3>Getting <span id="apkAppName">this app</span> ready…</h3>
+    </div>
+
+    <div class="apk-warning">
+      <span class="apk-warning-icon">⚠️</span>
+      <p>Your download should begin automatically. Before installing the app you should disable Play Protect from the Play Store — since this app isn't on the Play Store, Google may otherwise block or flag the install.</p>
+    </div>
+
+    <ol class="apk-steps">
+      <li>Open the <strong>Play Store</strong> app → tap your profile icon (top right)</li>
+      <li>Tap <strong>Play Protect</strong> → tap the settings ⚙️ icon</li>
+      <li>Turn off <strong>"Scan apps with Play Protect"</strong></li>
+    </ol>
+
+    <div class="apk-modal-actions">
+      <button type="button" class="btn btn-outline magnetic" id="apkCancel">Close</button>
+      <a class="btn btn-primary magnetic" id="apkConfirmDownload" href="#" download>Download Again</a>
+    </div>
   </div>
 </div>
 
