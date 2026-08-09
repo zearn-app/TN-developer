@@ -215,6 +215,67 @@ hireForm.addEventListener('submit', async (e) => {
   }
 });
 
+// ============ APK DOWNLOAD WARNING MODAL ============
+const apkOverlay = document.getElementById('apkOverlay');
+const apkClose = document.getElementById('apkClose');
+const apkCancel = document.getElementById('apkCancel');
+const apkConfirmDownload = document.getElementById('apkConfirmDownload');
+const apkAppName = document.getElementById('apkAppName');
+
+// Creates a throwaway <a download> and clicks it — this is the reliable
+// cross-browser way to force a file download instead of navigating to it.
+function triggerApkDownload(apkUrl, fileName) {
+  const a = document.createElement('a');
+  a.href = apkUrl;
+  a.setAttribute('download', fileName || '');
+  a.style.display = 'none';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+function openApkModal(apkUrl, appName, fileName) {
+  apkAppName.textContent = appName || 'this app';
+  apkConfirmDownload.href = apkUrl;
+  apkConfirmDownload.setAttribute('download', fileName || '');
+  apkOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeApkModal() {
+  apkOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.app-download-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const apkUrl = btn.dataset.apkUrl;
+    const appName = btn.dataset.appName;
+    const fileName = btn.dataset.fileName;
+
+    if (!apkUrl || apkUrl.includes('PASTE_YOUR_APK_LINK_HERE')) {
+      alert('APK link not set yet — add the real GitHub link to data-apk-url on the download button.');
+      return;
+    }
+
+    // Same click starts the real download AND shows the Play Protect notice.
+    triggerApkDownload(apkUrl, fileName);
+    openApkModal(apkUrl, appName, fileName);
+  });
+});
+
+apkClose.addEventListener('click', closeApkModal);
+apkCancel.addEventListener('click', closeApkModal);
+apkOverlay.addEventListener('click', (e) => {
+  if (e.target === apkOverlay) closeApkModal();
+});
+// "Download Again" fallback — in case the automatic download didn't fire.
+apkConfirmDownload.addEventListener('click', () => {
+  setTimeout(closeApkModal, 400);
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && apkOverlay.classList.contains('open')) closeApkModal();
+});
+
 // ============ MAGNETIC BUTTONS ============
 document.querySelectorAll('.magnetic').forEach(btn => {
   btn.addEventListener('mousemove', (e) => {
