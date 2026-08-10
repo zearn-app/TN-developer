@@ -287,6 +287,15 @@ body::after{
 }
 .apk-warning-icon{ font-size:1.3rem; line-height:1; }
 .apk-warning p{ color:var(--ink); font-size:.9rem; line-height:1.6; }
+.apk-warning--critical{
+  background:rgba(255,70,90,0.08); border:1px solid rgba(255,70,90,0.35);
+}
+.apk-important-tag{
+  display:inline-block; font-family:var(--font-display); font-size:.68rem; font-weight:700;
+  letter-spacing:.05em; text-transform:uppercase; color:#FF7A8A; background:rgba(255,70,90,0.16);
+  border:1px solid rgba(255,70,90,0.4); padding:.15rem .5rem; border-radius:100px;
+  margin-right:.5rem; vertical-align:middle;
+}
 .apk-steps{ margin:0 0 1.6rem 1.2rem; color:var(--ink-dim); font-size:.86rem; line-height:2; }
 .apk-steps strong{ color:var(--ink); }
 .apk-modal-actions{ display:flex; gap:1rem; }
