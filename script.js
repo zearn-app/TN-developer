@@ -221,30 +221,13 @@ const apkClose = document.getElementById('apkClose');
 const apkCancel = document.getElementById('apkCancel');
 const apkConfirmDownload = document.getElementById('apkConfirmDownload');
 const apkAppName = document.getElementById('apkAppName');
+let currentApkAppId = null;
 
-// Creates a throwaway <a download> and clicks it — this is the reliable
-// cross-browser way to force a file download instead of navigating to it.
-function triggerApkDownload(apkUrl, fileName) {
-  const a = document.createElement('a');
-  a.href = apkUrl;
-  a.setAttribute('download', fileName || '');
-  // target="_blank" is a safety net: if the host (e.g. Google Drive on large
-  // files) serves an interstitial page instead of the raw file, it opens in
-  // a new tab instead of navigating this site away.
-  a.target = '_blank';
-  a.rel = 'noopener';
-  a.style.display = 'none';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-}
-
-function openApkModal(apkUrl, appName, fileName) {
+function openApkModal(apkUrl, appId, appName, fileName) {
+  currentApkAppId = appId;
   apkAppName.textContent = appName || 'this app';
   apkConfirmDownload.href = apkUrl;
   apkConfirmDownload.setAttribute('download', fileName || '');
-  apkConfirmDownload.target = '_blank';
-  apkConfirmDownload.rel = 'noopener';
   apkOverlay.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -253,6 +236,8 @@ function closeApkModal() {
   document.body.style.overflow = '';
 }
 
+// Step 1: clicking "Download APK" only opens the warning modal — nothing
+// downloads yet.
 document.querySelectorAll('.app-download-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const apkUrl = btn.dataset.apkUrl;
@@ -265,10 +250,7 @@ document.querySelectorAll('.app-download-btn').forEach(btn => {
       return;
     }
 
-    // Same click starts the real download, logs it to Firebase, AND shows the Play Protect notice.
-    triggerApkDownload(apkUrl, fileName);
-    if (window.trackApkDownload) window.trackApkDownload(appId);
-    openApkModal(apkUrl, appName, fileName);
+    openApkModal(apkUrl, appId, appName, fileName);
   });
 });
 
@@ -277,9 +259,12 @@ apkCancel.addEventListener('click', closeApkModal);
 apkOverlay.addEventListener('click', (e) => {
   if (e.target === apkOverlay) closeApkModal();
 });
-// "Download Again" fallback — in case the automatic download didn't fire.
+// Step 2: only after they read both warnings and tap "Confirm Download" does
+// the browser actually redirect to Drive (real anchor click, opens in a new
+// tab via target="_blank"/rel set in the HTML). We log the download to
+// Firebase at this point too, since this is the real download intent.
 apkConfirmDownload.addEventListener('click', () => {
-  setTimeout(closeApkModal, 400);
+  if (window.trackApkDownload) window.trackApkDownload(currentApkAppId);
 });
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && apkOverlay.classList.contains('open')) closeApkModal();
