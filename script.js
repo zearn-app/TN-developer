@@ -228,6 +228,11 @@ function triggerApkDownload(apkUrl, fileName) {
   const a = document.createElement('a');
   a.href = apkUrl;
   a.setAttribute('download', fileName || '');
+  // target="_blank" is a safety net: if the host (e.g. Google Drive on large
+  // files) serves an interstitial page instead of the raw file, it opens in
+  // a new tab instead of navigating this site away.
+  a.target = '_blank';
+  a.rel = 'noopener';
   a.style.display = 'none';
   document.body.appendChild(a);
   a.click();
@@ -238,6 +243,8 @@ function openApkModal(apkUrl, appName, fileName) {
   apkAppName.textContent = appName || 'this app';
   apkConfirmDownload.href = apkUrl;
   apkConfirmDownload.setAttribute('download', fileName || '');
+  apkConfirmDownload.target = '_blank';
+  apkConfirmDownload.rel = 'noopener';
   apkOverlay.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -249,6 +256,7 @@ function closeApkModal() {
 document.querySelectorAll('.app-download-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const apkUrl = btn.dataset.apkUrl;
+    const appId = btn.dataset.appId;
     const appName = btn.dataset.appName;
     const fileName = btn.dataset.fileName;
 
@@ -257,8 +265,9 @@ document.querySelectorAll('.app-download-btn').forEach(btn => {
       return;
     }
 
-    // Same click starts the real download AND shows the Play Protect notice.
+    // Same click starts the real download, logs it to Firebase, AND shows the Play Protect notice.
     triggerApkDownload(apkUrl, fileName);
+    if (window.trackApkDownload) window.trackApkDownload(appId);
     openApkModal(apkUrl, appName, fileName);
   });
 });
