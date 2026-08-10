@@ -21,6 +21,10 @@
 //                         && request.resource.data.businessEmail is string;
 //          allow read, update, delete: if false; // only visible in the Firebase console
 //        }
+//        match /analytics/appDownloads {
+//          allow read: if true;
+//          allow write: if request.resource.data.keys().hasOnly(['total','notifyToneAI']);
+//        }
 //      }
 //    }
 //
@@ -58,6 +62,9 @@ const viewCounterEl = document.getElementById("viewCounter");
 
 // Sections we track individually as "pages" of this one-page site.
 const PAGE_IDS = ["home", "about", "skills", "projects", "process", "testimonials", "contact"];
+
+// Apps whose APK downloads we count individually (data-app-id on the button).
+const APP_IDS = ["notifyToneAI"];
 
 let app, db, firebaseReady = false;
 try {
@@ -106,6 +113,47 @@ trackVisit();
 // Track section changes as the visitor scrolls (updates per-section view count
 // once per session, based on which section is in view the longest on load of that hash)
 window.addEventListener("hashchange", trackVisit);
+
+// ============ APK DOWNLOAD COUNTER ============
+// Counts each download in Firestore (analytics/appDownloads) and keeps any
+// on-page ".app-download-count[data-app-id]" element updated live for every
+// visitor viewing the site — same pattern as the footer visit counter above.
+async function trackAppDownload(appId) {
+  if (!firebaseReady || !APP_IDS.includes(appId)) return;
+  try {
+    const ref = doc(db, "analytics", "appDownloads");
+    await runTransaction(db, async (tx) => {
+      const snap = await tx.get(ref);
+      const data = snap.exists() ? snap.data() : {};
+      const updated = { ...data };
+      updated.total = (data.total || 0) + 1;
+      updated[appId] = (data[appId] || 0) + 1;
+      tx.set(ref, updated, { merge: true });
+    });
+  } catch (err) {
+    console.warn("Firebase download tracking not configured yet:", err.message);
+  }
+}
+window.trackApkDownload = trackAppDownload;
+
+function listenAppDownloadCounts() {
+  if (!firebaseReady) return;
+  const countEls = document.querySelectorAll(".app-download-count[data-app-id]");
+  if (!countEls.length) return;
+  try {
+    const ref = doc(db, "analytics", "appDownloads");
+    onSnapshot(ref, (snap) => {
+      const data = snap.exists() ? snap.data() : {};
+      countEls.forEach((el) => {
+        const count = data[el.dataset.appId] || 0;
+        el.textContent = `⬇ ${count.toLocaleString()} downloads`;
+      });
+    });
+  } catch (err) {
+    console.warn("Firebase download counter not configured yet:", err.message);
+  }
+}
+listenAppDownloadCounts();
 
 // ============ HIRE REQUEST SUBMISSION ============
 // Called from script.js when the "Hire Me" popup form is submitted.
