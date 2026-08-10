@@ -385,24 +385,34 @@
     <button class="modal-close" id="apkClose" aria-label="Close">&times;</button>
 
     <div class="modal-head">
-      <p class="eyebrow">Download Started</p>
-      <h3>Getting <span id="apkAppName">this app</span> ready…</h3>
+      <p class="eyebrow">Before You Install</p>
+      <h3>Two quick steps — <span id="apkAppName">this app</span></h3>
     </div>
 
     <div class="apk-warning">
       <span class="apk-warning-icon">⚠️</span>
-      <p>Your download should begin automatically. Before installing the app you should disable Play Protect from the Play Store — since this app isn't on the Play Store, Google may otherwise block or flag the install.</p>
+      <p>Before installing the app you should disable Play Protect from the Play Store. Since this app isn't on the Play Store, Google may otherwise block or flag the install.</p>
     </div>
-
     <ol class="apk-steps">
       <li>Open the <strong>Play Store</strong> app → tap your profile icon (top right)</li>
       <li>Tap <strong>Play Protect</strong> → tap the settings ⚙️ icon</li>
       <li>Turn off <strong>"Scan apps with Play Protect"</strong></li>
     </ol>
 
+    <div class="apk-warning apk-warning--critical">
+      <span class="apk-warning-icon">🔒</span>
+      <p><span class="apk-important-tag">Important</span> After installing, you'll also need to allow restricted settings, or the app won't be able to work properly.</p>
+    </div>
+    <ol class="apk-steps">
+      <li>Go to <strong>Settings → Apps</strong> (App manager)</li>
+      <li>Find <strong>NotifyTone AI</strong></li>
+      <li>Tap the <strong>three-dot menu (⋮)</strong> top right</li>
+      <li>Tap <strong>"Allow restricted settings"</strong></li>
+    </ol>
+
     <div class="apk-modal-actions">
       <button type="button" class="btn btn-outline magnetic" id="apkCancel">Close</button>
-      <a class="btn btn-primary magnetic" id="apkConfirmDownload" href="#" download>Download Again</a>
+      <a class="btn btn-primary magnetic" id="apkConfirmDownload" href="#" target="_blank" rel="noopener" download>✅ Confirm Download</a>
     </div>
   </div>
 </div>
