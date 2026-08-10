@@ -275,6 +275,7 @@ body::after{
 .app-features{ display:grid; grid-template-columns:1fr 1fr; gap:.5rem; color:var(--ink-dim); font-size:.88rem; margin-bottom:1.4rem; }
 .app-download-btn{ border:none; width:100%; }
 .app-meta{ text-align:center; color:var(--ink-dim); font-size:.75rem; margin-top:.8rem; opacity:.75; }
+.app-download-count{ text-align:center; color:var(--violet-2); font-size:.78rem; font-weight:600; margin-top:.35rem; }
 @media (max-width:900px){ .apps-grid{ grid-template-columns:1fr; } }
 
 /* ============ APK WARNING MODAL ============ */
