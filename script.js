@@ -132,17 +132,46 @@ const barIO = new IntersectionObserver((entries) => {
 bars.forEach(el => barIO.observe(el));
 
 // ============ 3D TILT ON PROJECT CARDS ============
-document.querySelectorAll('.tilt').forEach(card => {
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    card.style.transform = `perspective(700px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateY(-6px)`;
+// Wrapped in a function + exposed on window so dynamically-inserted cards
+// (loaded from Firestore by content.js, e.g. new websites/apps added from
+// the admin panel) can be re-bound after they're added to the DOM.
+function bindTiltCards() {
+  document.querySelectorAll('.tilt:not([data-tilt-bound])').forEach(card => {
+    card.setAttribute('data-tilt-bound', '1');
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = `perspective(700px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateY(-6px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
   });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = '';
+}
+bindTiltCards();
+window.bindTiltCards = bindTiltCards;
+
+// Re-run scroll-reveal + magnetic-button binding for elements inserted after
+// the initial page load (used by content.js once Firestore data renders).
+function observeNewReveals() {
+  document.querySelectorAll('.reveal:not(.in-view)').forEach(el => io.observe(el));
+}
+window.observeNewReveals = observeNewReveals;
+
+function bindMagneticButtons() {
+  document.querySelectorAll('.magnetic:not([data-magnetic-bound])').forEach(btn => {
+    btn.setAttribute('data-magnetic-bound', '1');
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      btn.style.transform = `translate(${x * 0.25}px, ${y * 0.35}px)`;
+    });
+    btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
   });
-});
+}
+window.bindMagneticButtons = bindMagneticButtons;
 
 // ============ HIRE ME MODAL ============
 const hireOverlay = document.getElementById('hireOverlay');
@@ -237,22 +266,28 @@ function closeApkModal() {
 }
 
 // Step 1: clicking "Download APK" only opens the warning modal — nothing
-// downloads yet.
-document.querySelectorAll('.app-download-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const apkUrl = btn.dataset.apkUrl;
-    const appId = btn.dataset.appId;
-    const appName = btn.dataset.appName;
-    const fileName = btn.dataset.fileName;
+// downloads yet. Wrapped + exposed so content.js can re-bind after inserting
+// app cards loaded dynamically from Firestore.
+function bindAppDownloadButtons() {
+  document.querySelectorAll('.app-download-btn:not([data-dl-bound])').forEach(btn => {
+    btn.setAttribute('data-dl-bound', '1');
+    btn.addEventListener('click', () => {
+      const apkUrl = btn.dataset.apkUrl;
+      const appId = btn.dataset.appId;
+      const appName = btn.dataset.appName;
+      const fileName = btn.dataset.fileName;
 
-    if (!apkUrl || apkUrl.includes('PASTE_YOUR_APK_LINK_HERE')) {
-      alert('APK link not set yet — add the real GitHub link to data-apk-url on the download button.');
-      return;
-    }
+      if (!apkUrl || apkUrl.includes('PASTE_YOUR_APK_LINK_HERE')) {
+        alert('APK link not set yet — add the real download link from the admin panel.');
+        return;
+      }
 
-    openApkModal(apkUrl, appId, appName, fileName);
+      openApkModal(apkUrl, appId, appName, fileName);
+    });
   });
-});
+}
+bindAppDownloadButtons();
+window.bindAppDownloadButtons = bindAppDownloadButtons;
 
 apkClose.addEventListener('click', closeApkModal);
 apkCancel.addEventListener('click', closeApkModal);
@@ -271,12 +306,4 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ============ MAGNETIC BUTTONS ============
-document.querySelectorAll('.magnetic').forEach(btn => {
-  btn.addEventListener('mousemove', (e) => {
-    const rect = btn.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    btn.style.transform = `translate(${x * 0.25}px, ${y * 0.35}px)`;
-  });
-  btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
-});
+bindMagneticButtons();
