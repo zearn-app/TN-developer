@@ -250,11 +250,13 @@ const apkClose = document.getElementById('apkClose');
 const apkCancel = document.getElementById('apkCancel');
 const apkConfirmDownload = document.getElementById('apkConfirmDownload');
 const apkAppName = document.getElementById('apkAppName');
+const apkSettingsAppName = document.getElementById('apkSettingsAppName');
 let currentApkAppId = null;
 
 function openApkModal(apkUrl, appId, appName, fileName) {
   currentApkAppId = appId;
   apkAppName.textContent = appName || 'this app';
+  if (apkSettingsAppName) apkSettingsAppName.textContent = appName || 'this app';
   apkConfirmDownload.href = apkUrl;
   apkConfirmDownload.setAttribute('download', fileName || '');
   apkOverlay.classList.add('open');
