@@ -309,3 +309,4 @@ document.addEventListener('keydown', (e) => {
 
 // ============ MAGNETIC BUTTONS ============
 bindMagneticButtons();
+
