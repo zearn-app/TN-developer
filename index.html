@@ -193,40 +193,8 @@
     <h2>Apps I've Built</h2>
   </div>
 
-  <div class="apps-grid">
-    <div class="glass-card app-card tilt reveal">
-      <div class="app-card-top">
-        <div class="app-icon">🔔</div>
-        <div class="app-card-title">
-          <h3>NotifyTone AI</h3>
-          <p class="app-tag">Custom Notification Sounds</p>
-        </div>
-        <span class="app-badge">Free</span>
-      </div>
-
-      <p class="app-desc">Assign a unique notification sound to any contact, app, or chat conversation — so you know who's messaging before you even glance at your phone.</p>
-
-      <ul class="app-features">
-        <li>✔ Per-contact sounds</li>
-        <li>✔ Per-app sounds</li>
-        <li>✔ Works across all apps</li>
-        <li>✔ Smart chat/DM detection</li>
-        <li>✔ Reliable even in Doze mode</li>
-        <li>✔ Built with Kotlin + Compose</li>
-      </ul>
-
-      <button
-        type="button"
-        class="btn btn-primary magnetic app-download-btn"
-        data-apk-url="https://drive.google.com/uc?export=download&id=1xtjnqjSMSsBSaG8ZHw8IdxD11sMGRvpV"
-        data-app-id="notifyToneAI"
-        data-app-name="NotifyTone AI"
-        data-file-name="NotifyToneAI.apk">
-        ⬇ Download APK
-      </button>
-      <p class="app-meta">Android • Direct APK install • Not on Play Store</p>
-      <p class="app-download-count" data-app-id="notifyToneAI">⬇ — downloads</p>
-    </div>
+  <div class="apps-grid" id="appsGrid">
+    <p class="empty-note" id="appsEmptyNote">No apps published yet — check back soon.</p>
   </div>
 </section>
 
@@ -405,7 +373,7 @@
     </div>
     <ol class="apk-steps">
       <li>Go to <strong>Settings → Apps</strong> (App manager)</li>
-      <li>Find <strong>NotifyTone AI</strong></li>
+      <li>Find <strong id="apkSettingsAppName">this app</strong></li>
       <li>Tap the <strong>three-dot menu (⋮)</strong> top right</li>
       <li>Tap <strong>"Allow restricted settings"</strong></li>
     </ol>
@@ -421,4 +389,3 @@
 <script src="script.js"></script>
 </body>
 </html>
-
